@@ -1,0 +1,38 @@
+D:\SOFTWARE\Projects\PC Info\PC Info\bin\Debug\PC Info.exe
+D:\SOFTWARE\Projects\PC Info\PC Info\bin\Debug\PC Info.pdb
+D:\SOFTWARE\Projects\PC Info\PC Info\bin\Debug\PC Info.xml
+D:\SOFTWARE\Projects\PC Info\PC Info\obj\x86\Debug\PC_Info.Form1.resources
+D:\SOFTWARE\Projects\PC Info\PC Info\obj\x86\Debug\PC_Info.Resources.resources
+D:\SOFTWARE\Projects\PC Info\PC Info\obj\x86\Debug\PC Info.vbproj.GenerateResource.Cache
+D:\SOFTWARE\Projects\PC Info\PC Info\obj\x86\Debug\PC Info.exe
+D:\SOFTWARE\Projects\PC Info\PC Info\obj\x86\Debug\PC Info.xml
+D:\SOFTWARE\Projects\PC Info\PC Info\obj\x86\Debug\PC Info.pdb
+C:\Users\friedrja\Documents\Visual Studio 2010\Projects\PC Info\PC Info\obj\x86\Debug\PC Info.exe
+C:\Users\friedrja\Documents\Visual Studio 2010\Projects\PC Info\PC Info\obj\x86\Debug\PC Info.xml
+C:\Users\friedrja\Documents\Visual Studio 2010\Projects\PC Info\PC Info\obj\x86\Debug\PC Info.pdb
+C:\Users\friedrja\Documents\Visual Studio 2010\Projects\PC Info\PC Info\bin\Debug\PC Info.exe
+C:\Users\friedrja\Documents\Visual Studio 2010\Projects\PC Info\PC Info\bin\Debug\PC Info.pdb
+C:\Users\friedrja\Documents\Visual Studio 2010\Projects\PC Info\PC Info\bin\Debug\PC Info.xml
+C:\Users\friedrja\Documents\Visual Studio 2010\Projects\PC Info\PC Info\obj\x86\Debug\PC_Info.Form1.resources
+C:\Users\friedrja\Documents\Visual Studio 2010\Projects\PC Info\PC Info\obj\x86\Debug\PC_Info.Resources.resources
+C:\Users\friedrja\Documents\Visual Studio 2010\Projects\PC Info\PC Info\obj\x86\Debug\PC Info.vbproj.GenerateResource.Cache
+C:\Users\friedrja\Documents\Visual Studio 2010\Projects\PC Info\PC Info\obj\x86\Debug\PC_Info.Output.resources
+C:\Users\friedrja\Documents\Visual Studio 2010\Projects\PC Info\PC Info\obj\x86\Debug\PC_Info.Ping.resources
+C:\Users\friedrja\Documents\Visual Studio 2010\Projects\PC Info\PC Info\obj\x86\Debug\PC_Info.Tracert.resources
+C:\Users\gyorgyt\Documents\x\VB\2017-03-03 - PC Info Tool source files (Frierdich Janitól)\PC Info\PC Info\obj\x86\Debug\PC Info.exe
+C:\Users\gyorgyt\Documents\x\VB\2017-03-03 - PC Info Tool source files (Frierdich Janitól)\PC Info\PC Info\obj\x86\Debug\PC Info.xml
+C:\Users\gyorgyt\Documents\x\VB\2017-03-03 - PC Info Tool source files (Frierdich Janitól)\PC Info\PC Info\obj\x86\Debug\PC Info.pdb
+D:\Projects\2017-03-03 - PC Info Tool source files (Frierdich Janitól)\PC Info\PC Info\bin\Debug\PC Info.exe
+D:\Projects\2017-03-03 - PC Info Tool source files (Frierdich Janitól)\PC Info\PC Info\bin\Debug\PC Info.pdb
+D:\Projects\2017-03-03 - PC Info Tool source files (Frierdich Janitól)\PC Info\PC Info\bin\Debug\PC Info.xml
+D:\Projects\2017-03-03 - PC Info Tool source files (Frierdich Janitól)\PC Info\PC Info\obj\x86\Debug\PC Info.vbprojAssemblyReference.cache
+D:\Projects\2017-03-03 - PC Info Tool source files (Frierdich Janitól)\PC Info\PC Info\obj\x86\Debug\PC_Info.Form1.resources
+D:\Projects\2017-03-03 - PC Info Tool source files (Frierdich Janitól)\PC Info\PC Info\obj\x86\Debug\PC_Info.Resources.resources
+D:\Projects\2017-03-03 - PC Info Tool source files (Frierdich Janitól)\PC Info\PC Info\obj\x86\Debug\PC_Info.Output.resources
+D:\Projects\2017-03-03 - PC Info Tool source files (Frierdich Janitól)\PC Info\PC Info\obj\x86\Debug\PC_Info.Ping.resources
+D:\Projects\2017-03-03 - PC Info Tool source files (Frierdich Janitól)\PC Info\PC Info\obj\x86\Debug\PC_Info.Tracert.resources
+D:\Projects\2017-03-03 - PC Info Tool source files (Frierdich Janitól)\PC Info\PC Info\obj\x86\Debug\PC Info.vbproj.GenerateResource.cache
+D:\Projects\2017-03-03 - PC Info Tool source files (Frierdich Janitól)\PC Info\PC Info\obj\x86\Debug\PC Info.vbproj.CoreCompileInputs.cache
+D:\Projects\2017-03-03 - PC Info Tool source files (Frierdich Janitól)\PC Info\PC Info\obj\x86\Debug\PC Info.exe
+D:\Projects\2017-03-03 - PC Info Tool source files (Frierdich Janitól)\PC Info\PC Info\obj\x86\Debug\PC Info.xml
+D:\Projects\2017-03-03 - PC Info Tool source files (Frierdich Janitól)\PC Info\PC Info\obj\x86\Debug\PC Info.pdb
