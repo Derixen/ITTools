@@ -1,21 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Net.NetworkInformation;
-using Microsoft.Management.Infrastructure;
-using Microsoft.Management.Infrastructure.Options;
-using System.Security;
 using System.Collections.ObjectModel;
 using System.Management.Automation;
 using System.Threading;
@@ -30,7 +18,6 @@ namespace PingTool
     public partial class MainWindow : Window
     {
         public Boolean bClicked = false;
-        public Boolean bClicked2 = false;
         public string strComputer;
         string[] lines;
         public MainWindow()
@@ -45,6 +32,7 @@ namespace PingTool
             public string ipAddress { get; set; }
             public string pcStatus { get; set; }
             public string FQDN { get; set; }
+
         }
         public class InfoTable
         {
@@ -77,7 +65,6 @@ namespace PingTool
             Int64 x = 0;
             Int64 y = 0;
             Int64 z = 0;
-
 
             using (PowerShell PowerShellInstance = PowerShell.Create())
             {
@@ -225,7 +212,7 @@ namespace PingTool
                 dgStats.Items.Add(new InfoTable { Property = "FreeSpace (C:)", Value = pcFreeSpace });
             }));
         }
-        private void btnStartRevPing_Click(object sender, RoutedEventArgs e)
+        private void GetInfo_Click(object sender, RoutedEventArgs e)
         {
             strComputer = tbGetStats.Text;
             Thread t = new Thread(GetPCInfo);
@@ -354,9 +341,9 @@ namespace PingTool
                 tbGetStats.Text = string.Empty;
             }
 
-            bClicked2 = true;
+            bClicked = true;
         }
-        private void btnPSExec_Click(object sender, RoutedEventArgs e)
+        private void PSSession_Click(object sender, RoutedEventArgs e)
         {
             string strCmdText;
             string strComputerName = "";
@@ -380,10 +367,84 @@ namespace PingTool
             {
                 MessageBox.Show("Something went wrong!");
             }
-            
-            
 
         }
 
+        private void RepairWMI_Click(object sender, RoutedEventArgs e)
+        {
+            string strCmdText;
+            string strComputerName = "";
+
+            try
+            {
+                strComputerName = System.Net.Dns.GetHostEntry(tbGetStats.Text).HostName;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(tbGetStats.Text + " - is not a valid entry, please check spelling!");
+            }
+
+            using (PowerShell PowerShellInstance = PowerShell.Create())
+            {
+                PowerShellInstance.AddScript(
+                    @"$Command = 
+                    {
+                        Start-Process 'C:\windows\system32\notepad.exe' -Credential $cred
+                    }
+                    $s = New-PSSession -ComputerName " + strComputerName + @" -Authentication Kerberos -UseSSL
+                    Invoke-Command -Session $s -ScriptBlock $Command
+                    Start-Process 'C:\windows\system32\notepad.exe' -Credential $cred"
+                    );
+                try
+                {
+                    PowerShellInstance.Invoke();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Something went wrong!");
+                }
+            }
+        }
+
+        private void RepairSCCM_Click(object sender, RoutedEventArgs e)
+        {
+            string strCmdText;
+            string strComputerName = "";
+
+            try
+            {
+                strComputerName = System.Net.Dns.GetHostEntry(tbGetStats.Text).HostName;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(tbGetStats.Text + " - is not a valid entry, please check spelling!");
+            }
+
+            strCmdText = @"-NoExit 
+                        $Command = {
+                            Write-Host 'Repairing SCCM Client...'
+                            Start-Process -FilePath 'C:\Windows\CCMSETUP\ccmsetup.exe' -ArgumentList '/mp:DENBGMAEPA45SRV.evosoft.com SMSSITECODE=E01 FSP=DENBGMAEPA72SRV.ad001.siemens.net DNSSUFFIX=ad001.siemens.net'
+                            Sleep -Seconds 90
+                        }
+                        $s = New-PSSession -ComputerName " + strComputerName + @" -Authentication Kerberos -UseSSL
+                        Invoke-Command -Session $s -ScriptBlock $Command
+                        Write-Host 'Repair is completed.'
+                        Write-host 'Press ENTER to close the program!'
+                        Read-Host
+                        Stop-process -Id $PID";
+            try
+            {
+                System.Diagnostics.Process.Start("powershell.exe", strCmdText);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Something went wrong!");
+            }
+        }
+
+        private void RepairWUA_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
+        }
     }
 }
