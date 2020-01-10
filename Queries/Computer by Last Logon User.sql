@@ -1,7 +1,7 @@
 USE CM_E01
 
 DECLARE @UserName nvarchar(30)
-SET @UserName = 'Z003CCZK'
+SET @UserName = 'USERNAME01'
 
 SELECT DISTINCT sys.Name0 AS 'Name'
 	,sys.Full_Domain_Name0 AS 'Domain'

@@ -6,9 +6,9 @@ SELECT  sgn.System_Group_Name0,
 FROM v_RA_System_SystemGroupName as sgn
 	join v_R_System as sys on sys.ResourceID = sgn.resourceid
 
-WHERE sgn.System_Group_Name0 like '%SCCM_Exclusion_%circuit%' and sys.Name0 like 'EVH0266%'
+WHERE sgn.System_Group_Name0 like '%AD_SECURITY_GROUP%'
 
-order by sys.Name0
+ORDER BY sys.Name0
 
 
 

@@ -1,7 +1,7 @@
 Use CM_E01
 
 DECLARE @ComputerName nvarchar(30)
-SET @ComputerName = 'EVH04150NB' 
+SET @ComputerName = 'COMPUTER01' 
 
 SELECT Distinct sys.Name0 AS 'Name'
 	,sys.Full_Domain_Name0 AS 'Domain'

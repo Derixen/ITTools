@@ -56,6 +56,6 @@ FROM v_R_System_Valid AS s1
 
 --where ae.AppEnforcementState is not null and aa.ApplicationName='$ApplicationName'
 --WHERE aa.AssignmentID = '16777483'
-WHERE s1.netbios_name0 = 'evh08097ws' --and ae.AppEnforcementState in (1000,1001)
+WHERE s1.netbios_name0 = 'COMPUTER01' --and ae.AppEnforcementState in (1000,1001)
 
 order by aa.AssignmentName 

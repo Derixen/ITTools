@@ -22,5 +22,3 @@ FROM v_R_System AS sys
 	JOIN v_GS_COMPUTER_SYSTEM as cs ON cs.ResourceID = sys.resourceID
 	JOIN v_GS_OPERATING_SYSTEM as os ON os.ResourceID = sys.ResourceID
 	LEFT JOIN v_CH_ClientSummary AS ch ON ch.ResourceID = sys.ResourceID
-
---where sys.name0 = 'EVH02108WS'

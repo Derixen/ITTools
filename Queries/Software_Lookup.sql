@@ -84,5 +84,6 @@ FROM v_R_System AS sys
 	LEFT JOIN v_Add_Remove_Programs AS isw ON isw.ResourceID = sys.ResourceID
 
 WHERE isw.DisplayName0 like '%path%' --and isw.version0 = '9.1.979'
+
 ORDER BY isw.DisplayName0
 --ORDER BY sys.Name0

@@ -1,7 +1,7 @@
 USE CM_E01
 
 DECLARE @PackageID nvarchar(30)
-SET @PackageID = 'E01003CB'
+SET @PackageID = 'CAS00001'
 
 SELECT tsp.name AS 'Task Sequence Name'
 	,tsp.packageid AS 'Task Sequence ID'

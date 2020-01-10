@@ -7,9 +7,8 @@ SELECT sys.name0 AS 'Host'
 	,arp.InstallSource0 AS 'Installation Source'
 	,arp.UninstallString0 AS 'Uninstall String'
 
-
 FROM v_R_System AS sys
 	JOIN v_GS_INSTALLED_SOFTWARE AS arp ON sys.ResourceID = arp.ResourceID
 
-where sys.name0 = 'EVG02350NB'
+where sys.name0 = 'COMPUTER01'
 	and arp.arpdisplayname0 like '%pulse%'

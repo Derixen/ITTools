@@ -1,7 +1,7 @@
 USE CM_E01
 
 DECLARE @CollectionID nvarchar(30)
-SET @CollectionID = 'E01006FF' ---CAS00234 DE servers, CAS000A8 test servers, CAS0023A HU
+SET @CollectionID = 'CAS00001'
 
 SELECT col.CollectionID AS 'Collection ID'
 	,col.CollectionName AS 'Collection Name'

@@ -1,7 +1,7 @@
 USE CM_E01
 
 DECLARE @CollectionID nvarchar(30)
-SET @CollectionID = 'E010079D'
+SET @CollectionID = 'CAS00001'
 
 SELECT col.SiteID AS 'Collection ID'
 	,col.CollectionName AS 'Collection Name'

@@ -13,6 +13,5 @@ FROM
 	join v_GS_LOGICAL_DISK AS LDISK ON SYS.ResourceID = LDISK.ResourceID
 
 WHERE LDISK.Size0 is not NULL
-	--and sys.name0 = 'EVH06768NB'
 
 ORDER BY 'Host'

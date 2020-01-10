@@ -1,7 +1,7 @@
 USE CM_E01
 
 DECLARE @CBName nvarchar(30)
-SET @CBName = '[eIS][CB] Bitlocker Status'
+SET @CBName = 'COMPLIANCENAME'
 
 --List all Baselines by name
 SELECT DisplayName FROM v_LocalizedCIProperties_SiteLoc WHERE CI_ID in (SELECT CI_ID FROM v_ConfigurationItems WHERE CI_ID in (SELECT CI_ID FROM v_BaselineTargetedComputers))

@@ -10,4 +10,4 @@ GROUP BY dbo.v_RA_System_MACAddresses.MAC_Addresses0 ORDER BY SystemCount DESC
 
 select * from LastPXEAdvertisement ORDER BY LastPXEAdvertisementTime DESC
 
-select * from Netcard_DATA where MACAddress00 = '9C:EB:E8:7F:A2:B7'
+select * from Netcard_DATA where MACAddress00 = '00:00:00:00:00:00'

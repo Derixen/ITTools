@@ -1,1 +1,0 @@
-Select * from vStatusMessagesWithStrings where MessageType = '768'

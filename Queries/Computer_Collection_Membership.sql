@@ -1,7 +1,7 @@
 USE CM_E01
 
 DECLARE @ComputerName nvarchar(30)
-SET @ComputerName = 'evg02355nb'
+SET @ComputerName = 'COMPUTERNAME01'
 
 SELECT COL.CollectionID
 	,COL.Name

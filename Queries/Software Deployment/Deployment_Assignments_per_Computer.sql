@@ -1,10 +1,7 @@
- USE CM_E01
- 
-
 USE CM_E01
 
 DECLARE @ComputerName nvarchar(30)
-SET @ComputerName = 'evh08669NB'
+SET @ComputerName = 'COMPUTER01'
 
 SELECT pkg.PackageName
 	,pkg.MemberCount

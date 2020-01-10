@@ -1,7 +1,7 @@
 USE CM_E01
 
 DECLARE @AssignmentID nvarchar(30)
-SET @AssignmentID = '16779052'
+SET @AssignmentID = '11111111'
 
 select distinct sys.name0 as 'Computer Name'
 	,sys.Resource_Domain_OR_Workgr0 as 'Domain'
@@ -51,8 +51,6 @@ select distinct sys.name0 as 'Computer Name'
 		when ae.AppEnforcementState = 5009 then 'Failed to download superseded deployment type'
 		when ae.AppEnforcementState = 5010 then 'Failed to updating App-V Virtual Environment'
 	End as 'State Message'
-	
-	--,aa.*
 
 FROM v_R_System AS sys
 	join vAppDTDeploymentResultsPerClient AS ae on ae.ResourceID = sys.ResourceID
@@ -60,8 +58,6 @@ FROM v_R_System AS sys
 	LEFT join vAppDeploymentErrorAssetDetails as de on ae.AssignmentID = de.AssignmentID and sys.ResourceID = de.MachineID
 
 --where ae.AppEnforcementState is not null and aa.ApplicationName='$ApplicationName'
-WHERE --aa.AssignmentID = @AssignmentID
-	--and 
-	sys.name0 = 'EVG02038NB'
+WHERE aa.AssignmentID = @AssignmentID
 
---order by LastComplianceMessageTime Desc
+order by LastComplianceMessageTime Desc

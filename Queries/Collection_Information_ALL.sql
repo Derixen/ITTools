@@ -12,10 +12,7 @@ SELECT col.SiteID AS 'Collection ID'
 FROM vCollections AS col
 	LEFT JOIN Collection_Rules AS cr ON cr.CollectionID = col.CollectionID
 WHERE
-	--col.CollectionName like '%eIS%' and col.CollectionName like '%ADR%'
-	--col.SiteID='E01006BA'
 	col.MemberCount=0
-
 
 GROUP BY col.SiteID
 	,col.CollectionName

@@ -18,6 +18,6 @@ SELECT sys.Name0 AS 'Name'
 FROM v_R_System AS sys
 	LEFT JOIN v_CH_ClientSummary AS cs ON cs.ResourceID = sys.ResourceID
 
-WHERE sys.Name0 = 'EVG01014NB'
+WHERE sys.Name0 = 'PCNAME01'
 
 ORDER BY sys.Name0

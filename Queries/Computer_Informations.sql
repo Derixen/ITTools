@@ -1,7 +1,7 @@
 Use CM_E01
 
 DECLARE @ComputerName nvarchar(30)
-SET @ComputerName = 'EVG01896NB'
+SET @ComputerName = 'COMPUTERNAME01'
 
 DECLARE @UserName nvarchar(30)
 SET @UserName = 'Thomas.Woehrle'

@@ -1,7 +1,7 @@
 Use CM_E01
 
 DECLARE @Serialnumber nvarchar(30)
-SET @Serialnumber = 'YL8A030722'
+SET @Serialnumber = 'XXX000XXX'
 
 SELECT Distinct sys.Name0 AS 'Name'
 	,sys.Full_Domain_Name0 AS 'Domain'
