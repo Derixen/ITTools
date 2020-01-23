@@ -1,0 +1,70 @@
+'CreateCustomNameSpace.vbs
+
+
+'Rslaten 03/23/2007
+
+
+'This script creates a custom namespace and class
+
+
+'In theory, this should be delivered via SMS and run with admin rights
+
+
+'Create namespace
+
+
+Set oLocator = CreateObject("WbemScripting.sWbemLocator")
+
+
+Set oSvc = oLocator.ConnectServer(".", "root")
+
+
+Set oNamespace = oSvc.Get("__namespace")
+
+
+Set oCustomNameSpace = oNamespace.SpawnInstance_
+
+
+oCustomNamespace.name = "Custom"
+
+
+oCustomNamespace.Put_()
+
+
+'Create class to hold custom data
+
+
+wbemCimtypeString = 8
+
+
+wbemCimtypeUint32 = 19
+
+
+Set oWMI = GetObject("winmgmts:root\Custom")
+
+
+Set oClass = oWMI.Get()
+
+
+oClass.Path_.Class = "UserData"
+
+
+oClass.Properties_.add "EmployeeID", wbemCimTypeUint32
+
+
+oClass.Properties_("EmployeeID").Qualifiers_.add "key", true
+
+
+oClass.Properties_.add "FirstName", wbemCimtypeString
+
+
+oClass.Properties_.add "LastName", wbemCimtypeString
+
+
+oClass.Properties_.add "Department", wbemCimtypeString
+
+
+oClass.Properties_.add "OfficeNumber", wbemCimTypeString
+
+
+oClass.Put_()

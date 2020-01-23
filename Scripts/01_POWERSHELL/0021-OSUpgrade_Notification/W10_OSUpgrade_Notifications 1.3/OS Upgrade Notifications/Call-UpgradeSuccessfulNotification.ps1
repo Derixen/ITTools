@@ -1,0 +1,1 @@
+﻿Start-Process -FilePath powershell.exe -ArgumentList " -ExecutionPolicy Bypass -WindowStyle Hidden -File ""$Env:SystemDrive\temp\Show-UpgradeSuccessfulNotification.ps1"""

@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>Evosoft - Task Sequence Configuration Tool</title>
+<HTA:APPLICATION
+  APPLICATIONNAME="TSCT"
+  ID="MyHTMLapplication"
+  SCROLL="NO"
+  BORDER="DIALOG"
+  MAXIMIZEBUTTON="NO"
+  MINIMIZEBUTTON="NO"
+  SysMenu="no"
+  VERSION="1.0"/>
+</head>
+
+<script language="VBScript">
+
+	Sub Window_OnLoad
+		
+		iWindowHeight = 600
+		iWindowWidth = 320
+		
+		If screen.availHeight/2 > 540 Then
+			iWindowHeight = screen.availHeight/2
+		End If
+		
+		If screen.availWidth/6 > 320 Then
+			iWindowWidth = screen.availWidth/6
+		End If
+		
+		window.resizeTo iWindowWidth, iWindowHeight
+		window.moveTo 100, 100
+		window.focus()
+	End Sub
+
+	Function GetLanguageRadioValue()
+	  For i=0 to Language.length-1
+		If Language.Item(i).Checked Then
+		  GetLanguageRadioValue = Language.Item(i).Value
+		  Exit Function
+		End If
+	  Next
+	  GetLanguageRadioValue = ""
+	End Function
+
+	Sub OnClickButtonStartInstallation()
+		'set TSenv = CreateObject("Microsoft.SMS.TSEnvironment")
+		sComputerName = document.getElementById("computername").value
+		sLanguage = GetLanguageRadioValue
+		
+		If Len(sComputerName) = 0 Then
+			MsgBox "Please enter a computer name!", vbExclamation + vbOKOnly,"WARNING"
+		Else
+			'TSenv("OSDComputerName") = sComputerName
+			'TSenv("Language") = sLanguage
+			Self.Close()
+		End If
+		
+
+	End Sub
+</script>
+
+<body bgcolor="white">
+
+<!--Add your controls here-->
+
+<table id=myTable>
+		<tr>
+			<td align="center"><img src="evosoftlogo.jpg" alt="Smiley face" border="0" align="middle"></td>
+		</tr>
+		<tr>
+			<td height="20px" align="center"><b>COMPUTER NAME:</b></td>
+		</tr>
+		<tr>
+			<td height="30px" align="center"><input type="text" name="computername" size="30"></td>
+		</tr>
+		<tr>
+			<td height="20px" align="center"><b>OS LANGUAGE:</b></td>
+		</tr>
+		<tr>
+			<td height="130px" align="center">
+				<input type="radio" name="Language" value="English" checked="checked">English<BR>
+				<input type="radio" name="Language" value="German">German<BR>
+				<input type="radio" name="Language" value="Hungarian">Hungarian<BR>
+				<input type="radio" name="Language" value="Romanian">Romanian<BR>
+				<input type="radio" name="Language" value="Turkish">Turkish<BR>
+			</td>
+		</tr>
+		<tr>
+			<td height="50px" align="center">
+				<input type="button" name="StartInstallation" id="StartInstallation" value="START INSTALLATION" onclick="OnClickButtonStartInstallation" style="height:50px; width:270px">
+			</td>
+		</tr>
+</table>
+<!--{{InsertControlsHere}}-Do not remove this line-->
+</body>
+</html>

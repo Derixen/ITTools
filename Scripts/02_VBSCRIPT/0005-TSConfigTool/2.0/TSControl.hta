@@ -1,0 +1,113 @@
+<html>
+<head>
+<title>Evosoft - Task Sequence Configuration Tool</title>
+<HTA:APPLICATION
+  APPLICATIONNAME="TSCT"
+  ID="MyHTMLapplication"
+  SCROLL="NO"
+  BORDER="DIALOG"
+  MAXIMIZEBUTTON="NO"
+  MINIMIZEBUTTON="NO"
+  SysMenu="no"
+  VERSION="1.0"/>
+</head>
+
+<script language="VBScript">
+
+	Sub Window_OnLoad
+		iWindowHeight = screen.availHeight
+		iWindowWidth = 325
+		
+		If screen.availWidth/6 > 320 Then
+			iWindowWidth = screen.availWidth/5
+		End If
+		
+		
+		window.resizeTo iWindowWidth, iWindowHeight
+		window.moveTo 0, 0
+		window.focus()
+	End Sub
+
+	Function GetLanguageRadioValue()
+	  For i=0 to Language.length-1
+		If Language.Item(i).Checked Then
+		  GetLanguageRadioValue = Language.Item(i).Value
+		  Exit Function
+		End If
+	  Next
+	  GetLanguageRadioValue = ""
+	End Function
+	
+	Function GetPartitionSizeRadioValue()
+		For i=0 to Partition.length-1
+			If Partition.Item(i).Checked Then
+			  GetPartitionSizeRadioValue = Partition.Item(i).Value
+			  Exit Function
+			End If
+		Next
+		GetPartitionSizeRadioValue = ""
+	End Function
+	
+	Function GetInstallTypeValue()
+		For i=0 to InstallType.length-1
+			If InstallType.Item(i).Checked Then
+			  GetInstallTypeValue = InstallType.Item(i).Value
+			  Exit Function
+			End If
+		Next
+		GetInstallTypeValue = ""
+	End Function
+
+	Sub OnClickButtonStartInstallation()
+		set TSenv = CreateObject("Microsoft.SMS.TSEnvironment")
+		sComputerName = document.getElementById("computername").value
+		sPartitionSize = GetPartitionSizeRadioValue
+		sLanguage = GetLanguageRadioValue
+		sInstallType = GetInstallTypeValue
+		
+		If Len(sComputerName) = 0 Then
+			MsgBox "Please enter a computer name!", vbExclamation + vbOKOnly,"WARNING"
+		Else
+			TSenv("OSDComputerName") = sComputerName
+			TSenv("Language") = sLanguage
+			TSenv("PartitionSize") = sPartitionSize
+			TSenv("InstallType") = sInstallType
+			Self.Close()
+		End If
+	End Sub
+</script>
+
+<body bgcolor="white">
+
+<!--Add your controls here-->
+<img src="evosoftlogo.jpg" alt="Smiley face" border="0" align="middle"> 
+<br />
+<b>COMPUTER NAME:</b>
+<br />
+<input type="text" name="computername" size="40">
+<br />
+<b>OS PARTITION SIZE:</b>
+<br />
+<input type="radio" name="Partition" value="120GB" checked="checked">120GB<BR>
+<input type="radio" name="Partition" value="250GB">250GB<BR>
+<input type="radio" name="Partition" value="400GB">400GB<BR>
+<input type="radio" name="Partition" value="50-50">50% - 50%<BR>
+<input type="radio" name="Partition" value="one_partition">ONE PARTITION<BR>
+<br />
+<b>OS LANGUAGE:</b>
+<br />
+<input type="radio" name="Language" value="English" checked="checked">English<BR>
+<input type="radio" name="Language" value="German">German<BR>
+<input type="radio" name="Language" value="Hungarian">Hungarian<BR>
+<input type="radio" name="Language" value="Romanian">Romanian<BR>
+<input type="radio" name="Language" value="Turkish">Turkish<BR>
+<br />
+<b>INSTALLATION TYPE:</b>
+<br />
+<input type="radio" name="InstallType" value="Normal" checked="checked">Normal<BR>
+<input type="radio" name="InstallType" value="Basic">Basic<BR>
+<br />
+<input type="button" name="StartInstallation" id="StartInstallation" value="START INSTALLATION" onclick="OnClickButtonStartInstallation" style="height:50px; width:270px">
+<!--{{InsertControlsHere}}-Do not remove this line-->
+</body>
+</html>
