@@ -1,5 +1,7 @@
 $Computername = 'COMPUTERNAME.DOMAIN.COM'
 
+$SourceFiles = '\\PRIMARYSERVER\SMS_CAS\Client'
+$Destination = '\\' + $Computername + '\c$\Temp\CCMClient'
 $SessionWorks = $true
 $CopyWorked = $false
 $Command = { Write-Host 'PSSession established. Commencing with repair....' -ForegroundColor Green }
@@ -11,22 +13,19 @@ Try {
     $SessionWorks = $false
 }
 
+Write-Host 'Trying to copy source files from '$SourceFiles
+
+if (Test-Path $SourceFiles'\ccmsetup.exe') {
+    if (-Not (Test-Path $Destination)) { New-Item -ItemType Directory -Force -Path $Destination }
+    Copy-Item -Path $SourceFiles'\*' -Destination $Destination -Recurse -Container -Force
+    $CopyWorked = $true
+    Write-Host 'Client source files copied successfully' -ForegroundColor Green
+} else {
+    Write-Host 'Copy failed. Please check if source file '$SourceFiles'\ccmsetup.exe exsits' -ForegroundColor Red
+    $CopyWorked = $false
+}
+
 if ($SessionWorks) { 
-
-    $SourceFiles = '\\CASSERVER.DOMAIN.COM\SMS_CAS\Client\*'
-    $Destination = '\\' + $Computername + '\c$\Temp\CCMClient'
-
-    Try {
-        Write-Host 'Copying CCM Installation source files...'
-        if (-Not (Test-Path $Destination)) { New-Item -ItemType Directory -Force -Path $Destination }
-        Copy-Item -Path $SourceFiles -Destination $Destination -Recurse -Container -Force -ErrorAction Stop 
-        $CopyWorked = $true
-        Write-Host 'Client source files copied successfully' -ForegroundColor Green
-    } Catch { 
-        Write-Host 'Could not copy Client installation files:' -ForegroundColor Red
-        Write-Host $_ -ForegroundColor Red
-        $CopyWorked = $false
-    }
 
     $Command = {
 
@@ -34,7 +33,7 @@ if ($SessionWorks) {
         $TerndMicroFile = 'C:\Program Files (x86)\Trend Micro\OfficeScan Client\PccNTMon.exe'
         $CCMSetupLocal = 'C:\windows\ccmsetup\ccmsetup.exe'
         $CCMSetupSource = 'C:\Temp\CCMClient\ccmsetup.exe'
-        $CCMSetupArg = '/mp:PRIMARYSERVER.DOMAIN.COM SMSSITECODE=E01 FSP=FSPSERVER.DOMAIN.COM'
+        $CCMSetupArg = '/mp:PRIMARYSERVER SMSSITECODE=E01 FSP=PRIMARYSERVER'
         $LogFilePath = 'C:\Windows\ccmsetup\Logs\ccmsetup.log'
         $Count = 1
 
@@ -110,38 +109,67 @@ if ($SessionWorks) {
         Start-Process -FilePath $TerndMicroFile
 
         if (Test-Path $LogFilePath) {
-            
             Write-Host 'Removing existing CCMSetup.log'
             Remove-Item -Path $LogFilePath -ErrorAction SilentlyContinue
         } else { 
             Write-Host 'ccmsetup.log does not exist' -ForegroundColor Red 
         }
 
-        Write-Host 'Starting Software Center installation'
-        Start-Process -FilePath $CCMSetupSource -ArgumentList $CCMSetupArg -Wait
+        $InstallTry = 0
+        $bLogFound = $false
 
-        while ((Get-Content -Path $LogFilePath -Tail 1 | Select-String -Pattern "CcmSetup is exiting with return code" -SimpleMatch) -eq $null -or $Count -eq 120) 
-        { 
-            Start-Sleep 10 
-            $Count++
+        While ($InstallTry -lt 2 -and !$bLogFound) {
+
+            $LogCount = 0
+            $InstallTry++
+
+            if ($InstallTry -eq 1) { Write-Host 'Attempting to install Software Center' } else { Write-Host 'Installation did not start. Attempting to install Software Center for the 2nd time' -ForegroundColor Yellow }
+            Start-Process -FilePath $CCMSetupSource -ArgumentList $CCMSetupArg -Wait
+
+            Write-Host 'Checking for ccmsetup.log'
+            do {
+                If (Test-Path $LogFilePath) {
+                    Write-Host 'Found ccmsetup.log' -ForegroundColor Green
+                    $bLogFound = $true
+                } Else {
+                    Write-Host 'ccmsetup.log not found' -ForegroundColor Red 
+                    Start-Sleep -Seconds 5
+                    $LogCount++
+                    $bLogFound = $false
+                }
+
+            } While (!($bLogFound) -and $LogCount -lt 12)
+
         }
 
-        if ($count -ge 120 -and (Test-Path $LogFilePath)) { 
-            Write-Host 'Installation did not finish within 20 minutes' -ForegroundColor Red 
-        } elseif ($count -ge 120 -and -not (Test-Path $LogFilePath)) {
-            Write-Host 'Installation did not start within 20 minutes' -ForegroundColor Red
-        } else {
-            $Lastline = Get-Content -Path $LogFilePath -Tail 1
-            $ReturnCode = $Lastline.Substring(7,$Lastline.IndexOf(']LOG]!>')-7) -replace 'CcmSetup is exiting with return code ',''
+        if($bLogFound){
 
-            if ($ReturnCode -eq '0') { 
-                Write-Host 'Software Center was successfully installed' -ForegroundColor Green 
+            while ((Get-Content -Path $LogFilePath -Tail 1 | Select-String -Pattern "CcmSetup is exiting with return code" -SimpleMatch) -eq $null -or $Count -eq 120) 
+            { 
+                Start-Sleep 10 
+                $Count++
             }
-            elseif ($ReturnCode -eq '7') { 
-                Write-Host 'Software Center was successfully installed. Reboot Required' -ForegroundColor Yellow 
-            } else { 
-                Write-Host 'There was an error: ' + $Lastline.Substring(7,$Lastline.IndexOf(']LOG]!>')-7) -ForegroundColor Red 
+
+            if ($count -ge 120 -and (Test-Path $LogFilePath)) { 
+                Write-Host 'Installation did not finish within 20 minutes' -ForegroundColor Red 
+            } elseif ($count -ge 120 -and -not (Test-Path $LogFilePath)) {
+                Write-Host 'Installation did not start within 20 minutes' -ForegroundColor Red
+            } else {
+                $Lastline = Get-Content -Path $LogFilePath -Tail 1
+                $ReturnCode = $Lastline.Substring(7,$Lastline.IndexOf(']LOG]!>')-7) -replace 'CcmSetup is exiting with return code ',''
+
+                if ($ReturnCode -eq '0') { 
+                    Write-Host 'Software Center was successfully installed' -ForegroundColor Green 
+                }
+                elseif ($ReturnCode -eq '7') { 
+                    Write-Host 'Software Center was successfully installed. Reboot Required' -ForegroundColor Yellow 
+                } else { 
+                    Write-Host 'There was an error: ' + $Lastline.Substring(7,$Lastline.IndexOf(']LOG]!>')-7) -ForegroundColor Red 
+                }
             }
+
+        } else {
+            Write-Host 'Installation did not start after 2 minutes. Please try again...' -ForegroundColor Red 
         }
 
     }
